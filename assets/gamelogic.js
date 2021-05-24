@@ -7,6 +7,8 @@ myButton.addEventListener("click", countdown);
 function countdown() {
   //counter starts with 90 seconds on clock
   var timeLeft = 90;
+  myButton.style.display = "none";
+
   // Use the `setInterval()` method to 1 sec countdown
   var timeInterval = setInterval(function () {
     // As long as the `timeLeft` is greater than 1

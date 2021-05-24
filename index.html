@@ -12,18 +12,14 @@
 <body>
     <section class="row">
         <!-- high scores section  -->
-        <div class="box">
-            <h2>High Scores:</h2>
-            <ol>
-                <li>HIGHSCORE HERE</li>
-                <li>NEXT HS HERE</li>
-                <li>LAST HS HERE</li>
-            </ol>
+        <div class="timerbox">
+            <h2>Score:</h2>
+            <span id="myScore" class="timerOutput"></span>
         </div>
         <!-- Play button & Current Score Display -->
         <button id="gobutton" class="box">
-            <span class="gobutton-start">Let's Play!</span>
-            <span class="buttonbottom-start">Click to Start Game</span>
+            <span class="gobutton">Let's Play!</span>
+            <span class="gobutton">Click to Start Game</span>
         </button>
         <!-- timer section  -->
         <div class="timerbox">
@@ -46,5 +42,5 @@
     </section>
     <script src="./assets/gamelogic.js"></script>  
 </body>
-<footer> </footer>
+<footer><h1> View High Scores </h1> </footer>
 </html>
