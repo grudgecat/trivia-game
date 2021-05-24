@@ -1,0 +1,135 @@
+/* Set up initial styles for full page to include: color theme as variables for page,
+   initial font sytles/colors, remove margins, set background. */
+:root {
+  --darkblue: #092578;
+  --backgroundblue: #c9d1f0;
+  --minht: 80px;
+  }
+
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+
+ }
+h1 {
+  margin: 10px 0;
+}
+
+ h2 {
+   font-size: 36px;
+   margin: 5px;
+ }
+
+header {
+  display: flex;
+  justify-content: center;
+  min-height: var(--minht);
+  font-size: 42px;
+  background-color: purple;
+ }
+
+ /* two rows - score/button and timer; then trivia questions  */
+.row {
+  display: flex;
+  justify-content: space-around;
+  background-color: silver;
+  padding: 10px;
+}
+
+ .box {
+  display: flex;
+  flex-direction: column;
+  background-color: tomato;
+  margin: 3px 20px;
+  padding: 15px;
+  border: 5px solid black;
+  border-radius: 10px;
+  width: 25%;
+}
+
+/* recent hiscore output, nudge to the right  */
+.box ol {
+  margin-left: 20px;
+}
+
+/* button before game is active */
+.gobutton-start {
+  align-self: center;
+  font-size: 36px;
+  background-color: tomato;
+}
+
+.buttonbottom-start {
+  align-self: center;
+  font-size: 26px;
+  background-color: tomato;
+}
+
+/* button after game starts */
+.gobutton-play {
+  align-self: center;
+  font-size:30px;
+  background-color: yellow;
+}
+
+.buttonbottom-play {
+  align-self: center;
+  font-size: 36px;
+  background-color: yellow;
+}
+
+/* box for timer countdown display is smaller, text larger  */
+.timerbox {
+  display: flex;
+  flex-direction: column;
+  background-color: tomato;
+  margin: 3px 20px;
+  padding: 15px;
+  border: 5px solid black;
+  border-radius: 10px;
+  width: 10%;
+}
+
+.timerOutput {
+  font-size: 48px;
+  align-self: center;
+}
+
+/* display container for trivia questions */
+.questbox {
+  display: flex;
+  flex-direction: column;
+  margin-left: -30px;
+  background-color: purple;
+  margin: 15px 20px;
+  padding: 15px;
+  min-width: 75%;
+}
+
+.questbox h2 {
+  font-size: 48px;
+}
+
+.questbox ul, p {
+  font-size: 30px;
+}
+
+.questbox li {
+  margin: 10px;
+  padding: 5px;
+  background-color: green;
+  border: solid 3px black;
+  width: 50%;
+  /* min-width: 30%;
+  max-width: 70%; */
+}
+
+footer {
+  min-height: var(--minht);
+  background-color: purple;
+}
+/* END OF STYLESHEET  */

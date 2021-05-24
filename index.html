@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Trivia Game</title>
+    <link rel="stylesheet" href="./assets/reset.css" >      <!-- CSS reset -->
+    <link rel="stylesheet" href="./assets/styles.css" />      <!-- CSS stylesheet -->
+</head>
+<header><h1>Star Wars Triva Game</h1></header>
+<body>
+    <section class="row">
+        <!-- high scores section  -->
+        <div class="box">
+            <h2>High Scores:</h2>
+            <ol>
+                <li>HIGHSCORE HERE</li>
+                <li>NEXT HS HERE</li>
+                <li>LAST HS HERE</li>
+            </ol>
+        </div>
+        <!-- Play button & Current Score Display -->
+        <button id="gobutton" class="box">
+            <span class="gobutton-start">Let's Play!</span>
+            <span class="buttonbottom-start">Click to Start Game</span>
+        </button>
+        <!-- timer section  -->
+        <div class="timerbox">
+            <h2>Timer:</h2>
+            <span id="currTime" class="timerOutput"></span>
+        </div>
+    </section>
+
+    <section class="row">
+        <div class="questbox">
+            <h2>Question:</h2>
+            <span id="triviaQuestion"><p>What's your favoriate color?</p></span>
+            <ul id="answerList">
+                <li>Red</li>
+                <li>Blue</li>
+                <li>Purple</li>
+                <li>Green</li>
+            </ul>
+        </div>
+    </section>
+    <script src="./assets/gamelogic.js"></script>  
+</body>
+<footer> </footer>
+</html>
