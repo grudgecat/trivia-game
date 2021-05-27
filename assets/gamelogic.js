@@ -4,25 +4,26 @@
 var score = 0;
 var timeLeft = 90;
 var playerInitials = "abc";
-var randomizeAnswersArray = []; 
-var triviaQuestion = {
+var choicesList = [];
+var j = 0;  //QUESTION INDEX is j
 
-}
-var questionList = [];
-
-
+  //get the master question list, store in `tqList`
+  var tqList = JSON.parse(localStorage.getItem("triviaQuestionList"));
+  // console.log(tqList);
+  var tqLength = tqList.length;
+  console.log(tqLength);
 
 //DECLARE VARS TO 'GET' ELEMENTS ON PAGE
 var timerEl = document.getElementById('currTime');
+var scoreEl = document.getElementById('myScore');
 var buttonEl = document.getElementById('gobutton');
-
 
 buttonEl.addEventListener("click", countdown);
 
 function countdown() {
   //counter starts with 90 seconds on clock
   var timeLeft = 90;
-buttonEl.style.display = "none";
+  buttonEl.style.display = "none";
 
   // Use the `setInterval()` method to 1 sec countdown
   var timeInterval = setInterval(function () {
@@ -36,50 +37,53 @@ buttonEl.style.display = "none";
       // Time gets to zero, stop timer & countdown
       timerEl.textContent = "0";
       clearInterval(timeInterval);
-      //for future use - end the game
+      //for future use - CALL END THE GAME FXN
     }
   }, 1000);
-
+  
+  console.log(timeInterval);
+  //display the trivia question
   displayQuestion();
-  randomizeAnswersArray = makeRandomFourArray();
-  console.log("randomize answers array is " + randomizeAnswersArray);
+  //get user answer
+  userAnswer();
+  return timeLeft;
 }
 
-function makeRandomFourArray() {
-  var randomFour = [];
-  while (randomFour.length !== 4 && randomFour.length < 5) {
-    var randy =  Math.floor(Math.random() * 4);
-    if (!randomFour.includes(randy))
-    {
-    randomFour.push(randy);
-    }
-  }
-  return randomFour;
-}
-
+//DISPLAY THE CURRENT QUESTION AND ANSWER TEXT TO PAGE
 function displayQuestion() {
+  //write question to page for current element index j
+    document.getElementById("triviaQuestionID").innerHTML = tqList[j].question; 
 
-  var tqList = JSON.parse(localStorage.getItem("triviaQuestionList"));
-  var tempList = [];
+    // var choicesList = [];
+    choicesList = document.getElementById("answerListID").children;
   
-  var j = 1;
-  document.getElementById("triviaQuestion").innerHTML = tqList[j].question; 
-
-  console.log("tempList length is " + document.getElementById("answerList").children.length);
-  tempList = document.getElementById("answerList").children;
-
-  
-  tempList[2].innerHTML = tqList[j].filler1; 
-
-
-  // document.getElementById("answerList.child").innerHTML = tqList[j].filler1; 
-
-  // console.log(tempList);
-  // console.log(tempList[j]);
-  
-
-  
+    for(var i =0; i < choicesList.length; i++ ) {
+      choicesList[i].textContent = tqList[j].choices[i];
+    }
 }
 
+function userAnswer() {
+  var answerLiEl = document.getElementById("answerListID").getElementsByTagName('li');
+  //add click event to all li elements in answer list
+  for (var i = 0; i < answerLiEl.length; i++) {
+      answerLiEl[i].addEventListener('click', checkAnswer, false);  //on click, check answer
+  }
 
-
+  function checkAnswer() {
+    if(this.textContent === tqList[j].answer)
+    {
+      console.log("you got it dude");
+      timeLeft++;
+      // timeLeft = timeLeft +10;
+      console.log(timeLeft);
+      score++;
+      timerEl.textContent = timeLeft;
+    }
+    else
+    {
+      console.log("nope");
+      timeLeft--;
+    }
+    return timeLeft;
+  }
+}
