@@ -5,13 +5,11 @@ var score = 0;
 var timeLeft = 20;
 var playerInitials = "abc";
 var choicesList = [];
-var j = 0;  //QUESTION INDEX is j
 
   //get the master question list, store in `tqList`
   var tqList = JSON.parse(localStorage.getItem("triviaQuestionList"));
-  // console.log(tqList);
-  var tqLength = tqList.length;
-  console.log(tqLength);
+  // var j = tqList.length - 1;  //QUESTION INDEX is j
+  j = 0;
 
 //DECLARE VARS TO 'GET' ELEMENTS ON PAGE
 var timerEl = document.getElementById('currTime');
@@ -44,18 +42,17 @@ function countdown() {
     }
   }, 1000);
   
-  console.log(timeInterval);
   //display the trivia question & answer choices
-  displayQuestion();
-  //get user answer - click event declared in userAnswer fxn
-  userAnswer();
-  //return timeLeft variable to keep local/global vars in sync
+    displayQuestion();
+    //get user answer - click event declared in userAnswer fxn
+    userAnswer();
   return timeLeft;
 }
 
 //DISPLAY THE CURRENT QUESTION AND ANSWER TEXT TO PAGE
 function displayQuestion() {
   //write question to page for current element index j
+  console.log("j is currently " + j);
     document.getElementById("triviaQuestionID").innerHTML = tqList[j].question; 
 
     //Set up list elements: array of 4 <li>, are children of "answerListID"
@@ -71,12 +68,13 @@ function userAnswer() {
   //get all four <li> elements as array answerLiEl
   var answerLiEl = document.getElementById("answerListID").getElementsByTagName('li');
   //add click event to each <li> element 
-  for (var i = 0; i < answerLiEl.length; i++) {
+    for (var i = 0; i < answerLiEl.length; i++) {
       answerLiEl[i].addEventListener('click', checkAnswer, false);  //on click, check answer
   }
   //when <li> is clicked, check if equal to answer or not
   function checkAnswer() {
     //equal, so increment timer and score
+    console.log("tqList_j_answer is currently " + tqList[j].answer);
     if(this.textContent === tqList[j].answer)  
     {
       console.log("you got it dude");
@@ -101,7 +99,20 @@ function userAnswer() {
     //return timeLeft variable to keep local/global vars in sync
     return timeLeft;
   }
+
 }
+
+//CANT GET THIS WORKING.
+// function triviaGame() {
+//  while(j < tqList.length) {
+//     //display the trivia question & answer choices
+//     displayQuestion();
+//     //get user answer - click event declared in userAnswer fxn
+//     userAnswer();
+//     //return timeLeft variable to keep local/global vars in sync
+//     j++;
+//   }
+// }
 
 function endOfGame() {
   console.log('end of game');
@@ -109,3 +120,5 @@ function endOfGame() {
   setTimeout(function(){ alert("End of Game! Well done!"); }, 1000);
   setTimeout(function(){ location.reload(); }, 2000);
 }
+
+triviaGame();
