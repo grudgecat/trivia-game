@@ -2,19 +2,22 @@
 //triviaQuestionList is set in separate script, contains all questions/answers for game
 // using localStorage.setItem("triviaQuestionList", JSON.stringify(trivaQuestionList));
 var score = 0;
-var timeLeft = 20;
+var timeLeft = 30;
 var playerInitials = "abc";
 var choicesList = [];
 
   //get the master question list, store in `tqList`
-  var tqList = JSON.parse(localStorage.getItem("triviaQuestionList"));
-  // var j = tqList.length - 1;  //QUESTION INDEX is j
-  j = 0;
+  // var tqList = JSON.parse(localStorage.getItem("triviaQuestionList")); 
+  var tqList = trivaQuestionList;
+  console.log("first tqlist is: ");
+  console.log(tqList);
+  var index = 0;
 
 //DECLARE VARS TO 'GET' ELEMENTS ON PAGE
 var timerEl = document.getElementById('currTime');
 var scoreEl = document.getElementById('myScore');
 var buttonEl = document.getElementById('gobutton');
+var statusEl = document.getElementById('status');
 
 //DECLARE EVENT LISTENERS FOR START BUTTON - START THE GAME
 buttonEl.addEventListener("click", countdown);
@@ -41,84 +44,75 @@ function countdown() {
       endOfGame();
     }
   }, 1000);
-  
-  //display the trivia question & answer choices
-    displayQuestion();
-    //get user answer - click event declared in userAnswer fxn
-    userAnswer();
-  return timeLeft;
+  // return timeLeft; 
+  return "";
 }
 
 //DISPLAY THE CURRENT QUESTION AND ANSWER TEXT TO PAGE
-function displayQuestion() {
-  //write question to page for current element index j
-  console.log("j is currently " + j);
-    document.getElementById("triviaQuestionID").innerHTML = tqList[j].question; 
-
+function displayQuestion(index) {
+  if(index < tqList.length) {
+    //write question to page for current element index 
+    document.getElementById("triviaQuestionID").innerHTML = tqList[index].question; 
     //Set up list elements: array of 4 <li>, are children of "answerListID"
     choicesList = document.getElementById("answerListID").children;
-    //Display: copy answers array items from local storage tqList[j] into 4 <li> elements
+    //Display: copy answers array items from local storage tqList[index] into 4 <li> elements
     for(var i =0; i < choicesList.length; i++ ) {
-      choicesList[i].textContent = tqList[j].choices[i];
+      choicesList[i].textContent = tqList[index].choices[i];
     }
+  }
+  return "";
 }
 
-//GET USER RESPONSE TO QUIZ QUESTIONS VIA CLICK EVENTS
-function userAnswer() {
-  //get all four <li> elements as array answerLiEl
-  var answerLiEl = document.getElementById("answerListID").getElementsByTagName('li');
-  //add click event to each <li> element 
-    for (var i = 0; i < answerLiEl.length; i++) {
-      answerLiEl[i].addEventListener('click', checkAnswer, false);  //on click, check answer
-  }
-  //when <li> is clicked, check if equal to answer or not
-  function checkAnswer() {
-    //equal, so increment timer and score
-    console.log("tqList_j_answer is currently " + tqList[j].answer);
-    if(this.textContent === tqList[j].answer)  
-    {
-      console.log("you got it dude");
-      timeLeft++;
-      // timeLeft = timeLeft +10;
-      console.log(timeLeft);
-      timerEl.textContent = timeLeft;
+function checkUserResponse() {
+  document.getElementById("answerListID").addEventListener("click", function(event) {
+    // verify list item is grabbed
+    if(event.target && event.target.nodeName == "LI") {
+      // var userPicked = checkAnswer(event.target.textContent); 
+      if (event.target.textContent == tqList[index].answer) {
       score++;
       scoreEl.textContent = score;
-    }
-    //not equal, so decrement timer, no change to score
-    else
-    {
-      console.log("nope");
-      if (timeLeft <= 0)
-        endOfGame();
-      else{
-        timeLeft--;
-        timerEl.textContent = timeLeft;
+      }
+      else if (timeLeft > 10) {
+      timeLeft = timeLeft - 10;
+      }
+      else {
+      timeLeft = 0;
+      endOfGame();
       }
     }
-    //return timeLeft variable to keep local/global vars in sync
-    return timeLeft;
-  }
-
+  });
 }
 
-//CANT GET THIS WORKING.
-// function triviaGame() {
-//  while(j < tqList.length) {
-//     //display the trivia question & answer choices
-//     displayQuestion();
-//     //get user answer - click event declared in userAnswer fxn
-//     userAnswer();
-//     //return timeLeft variable to keep local/global vars in sync
-//     j++;
+// function checkAnswer(itemClicked) {
+//   if((timeLeft > 0 ) && (index >= 0))
+//   {
+//     console.log("inside of check answer fxn tqlist is " );
+//     console.log(tqList);
+//     if(itemClicked == tqList[index].answer) {
+//       console.log("Correct Answer!");
+//       // score++;
+//       return true;
+//     }
+//     else {
+//       console.log("Wrong answer!");
+//       return false;
+//     }
 //   }
 // }
 
 function endOfGame() {
-  console.log('end of game');
   timerEl.textContent = 0;
   setTimeout(function(){ alert("End of Game! Well done!"); }, 1000);
   setTimeout(function(){ location.reload(); }, 2000);
 }
 
-triviaGame();
+
+// displayQuestion(index);
+// checkUserResponse();
+
+for(var k = 0; k < tqList.length; k++) {
+  displayQuestion(index);
+  checkUserResponse();
+  index++;
+}
+

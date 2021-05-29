@@ -107,6 +107,12 @@ header {
   width: 50%;
 }
 
+.status {
+  align-self: center;
+  color: rgb(160, 154, 154);
+  font-weight: bolder;
+}
+
 footer {
   display: flex;
   justify-content: center;

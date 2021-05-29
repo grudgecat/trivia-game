@@ -32,4 +32,4 @@ var trivaQuestionList = [
     ];
 
 
-localStorage.setItem("triviaQuestionList", JSON.stringify(trivaQuestionList));
+// localStorage.setItem("triviaQuestionList", JSON.stringify(trivaQuestionList)); 
