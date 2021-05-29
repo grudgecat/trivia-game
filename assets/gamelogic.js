@@ -1,17 +1,22 @@
 //DECLARE GLOBAL VARIABLES
 //triviaQuestionList is set in separate script, contains all questions/answers for game
 // using localStorage.setItem("triviaQuestionList", JSON.stringify(trivaQuestionList));
+//test 2
+
 var score = 0;
-var timeLeft = 30;
+var timeLeft = 5;
 var playerInitials = "abc";
 var choicesList = [];
+var answerClicked = false;
+var index = 1;
+var tqList = [];
+tqList = triviaQuestionList;
+console.log(typeof(tqList));
+console.log(tqList);
+
 
   //get the master question list, store in `tqList`
   // var tqList = JSON.parse(localStorage.getItem("triviaQuestionList")); 
-  var tqList = trivaQuestionList;
-  console.log("first tqlist is: ");
-  console.log(tqList);
-  var index = 0;
 
 //DECLARE VARS TO 'GET' ELEMENTS ON PAGE
 var timerEl = document.getElementById('currTime');
@@ -48,26 +53,30 @@ function countdown() {
   return "";
 }
 
+
 //DISPLAY THE CURRENT QUESTION AND ANSWER TEXT TO PAGE
-function displayQuestion(index) {
-  if(index < tqList.length) {
+function displayQuestion() {
+  console.log(typeof(tqList));
+  if(index < 5) {
     //write question to page for current element index 
     document.getElementById("triviaQuestionID").innerHTML = tqList[index].question; 
     //Set up list elements: array of 4 <li>, are children of "answerListID"
     choicesList = document.getElementById("answerListID").children;
     //Display: copy answers array items from local storage tqList[index] into 4 <li> elements
-    for(var i =0; i < choicesList.length; i++ ) {
+    for(var i = 0; i < choicesList.length; i++ ) {
       choicesList[i].textContent = tqList[index].choices[i];
     }
   }
   return "";
 }
+// displayQuestion();
 
 function checkUserResponse() {
   document.getElementById("answerListID").addEventListener("click", function(event) {
     // verify list item is grabbed
     if(event.target && event.target.nodeName == "LI") {
       // var userPicked = checkAnswer(event.target.textContent); 
+      console.log(tqList[index]);
       if (event.target.textContent == tqList[index].answer) {
       score++;
       scoreEl.textContent = score;
@@ -83,36 +92,11 @@ function checkUserResponse() {
   });
 }
 
-// function checkAnswer(itemClicked) {
-//   if((timeLeft > 0 ) && (index >= 0))
-//   {
-//     console.log("inside of check answer fxn tqlist is " );
-//     console.log(tqList);
-//     if(itemClicked == tqList[index].answer) {
-//       console.log("Correct Answer!");
-//       // score++;
-//       return true;
-//     }
-//     else {
-//       console.log("Wrong answer!");
-//       return false;
-//     }
-//   }
-// }
+
 
 function endOfGame() {
   timerEl.textContent = 0;
   setTimeout(function(){ alert("End of Game! Well done!"); }, 1000);
   setTimeout(function(){ location.reload(); }, 2000);
-}
-
-
-// displayQuestion(index);
-// checkUserResponse();
-
-for(var k = 0; k < tqList.length; k++) {
-  displayQuestion(index);
-  checkUserResponse();
-  index++;
 }
 
