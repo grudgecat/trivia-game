@@ -1,4 +1,6 @@
-var trivaQuestionList = [
+// var trivaQuestionList = [ 
+
+const tqList = [
     {
         question: "What is the name of Yoda’s home?",
         answer: "Dagobah",

@@ -1,28 +1,21 @@
 //DECLARE GLOBAL VARIABLES
-//triviaQuestionList is set in separate script, contains all questions/answers for game
-// using localStorage.setItem("triviaQuestionList", JSON.stringify(trivaQuestionList));
-//test 2
-
+// ---------------------------------------------------------------------------- //
+//tqList is declared in separate file 'questionlist.js', contains all questions/answers for game
 var score = 0;
-var timeLeft = 5;
+var timeLeft = 25;
 var playerInitials = "abc";
 var choicesList = [];
-var answerClicked = false;
-var index = 1;
-var tqList = [];
-tqList = triviaQuestionList;
-console.log(typeof(tqList));
-console.log(tqList);
+var index = 0;
+var length = tqList.length;
 
-
-  //get the master question list, store in `tqList`
-  // var tqList = JSON.parse(localStorage.getItem("triviaQuestionList")); 
-
-//DECLARE VARS TO 'GET' ELEMENTS ON PAGE
+//DECLARE VARS TO 'GET' ELEMENTS ONTO PAGE
 var timerEl = document.getElementById('currTime');
 var scoreEl = document.getElementById('myScore');
 var buttonEl = document.getElementById('gobutton');
 var statusEl = document.getElementById('status');
+
+//DECLARE FUNCTIONS
+// ---------------------------------------------------------------------------- //
 
 //DECLARE EVENT LISTENERS FOR START BUTTON - START THE GAME
 buttonEl.addEventListener("click", countdown);
@@ -53,11 +46,9 @@ function countdown() {
   return "";
 }
 
-
 //DISPLAY THE CURRENT QUESTION AND ANSWER TEXT TO PAGE
 function displayQuestion() {
-  console.log(typeof(tqList));
-  if(index < 5) {
+  if(index < length) {
     //write question to page for current element index 
     document.getElementById("triviaQuestionID").innerHTML = tqList[index].question; 
     //Set up list elements: array of 4 <li>, are children of "answerListID"
@@ -69,14 +60,12 @@ function displayQuestion() {
   }
   return "";
 }
-// displayQuestion();
 
 function checkUserResponse() {
   document.getElementById("answerListID").addEventListener("click", function(event) {
     // verify list item is grabbed
     if(event.target && event.target.nodeName == "LI") {
       // var userPicked = checkAnswer(event.target.textContent); 
-      console.log(tqList[index]);
       if (event.target.textContent == tqList[index].answer) {
       score++;
       scoreEl.textContent = score;
@@ -92,11 +81,11 @@ function checkUserResponse() {
   });
 }
 
-
-
 function endOfGame() {
   timerEl.textContent = 0;
   setTimeout(function(){ alert("End of Game! Well done!"); }, 1000);
   setTimeout(function(){ location.reload(); }, 2000);
 }
 
+//GAME LOGIC
+// ---------------------------------------------------------------------------- //
