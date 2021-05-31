@@ -2,17 +2,26 @@
 // ---------------------------------------------------------------------------- //
 //tqList is declared in separate file 'questionlist.js', contains all questions/answers for game
 var score = 0;
-var timeLeft = 25;
+var correct = "Correct!";
+var incorrect = "Incorrect!";
+var timeLeft = 90;
 var playerInitials = "abc";
 var choicesList = [];
 var index = 0;
 var length = tqList.length;
+console.log(length);
+var highScoreList = {
+  playerInitials: "MOM",
+  playerScore: 50
+};
+localStorage.setItem("highScoreList", JSON.stringify(highScoreList)); 
 
 //DECLARE VARS TO 'GET' ELEMENTS ONTO PAGE
 var timerEl = document.getElementById('currTime');
 var scoreEl = document.getElementById('myScore');
 var buttonEl = document.getElementById('gobutton');
 var statusEl = document.getElementById('status');
+var highScoreEl = document.getElementById('highScoresID');
 
 //DECLARE FUNCTIONS
 // ---------------------------------------------------------------------------- //
@@ -50,10 +59,10 @@ function countdown() {
 function displayQuestion() {
   if(index < length) {
     //write question to page for current element index 
+    // statusEl.textContent = ""; 
     document.getElementById("triviaQuestionID").innerHTML = tqList[index].question; 
     //Set up list elements: array of 4 <li>, are children of "answerListID"
     choicesList = document.getElementById("answerListID").children;
-    //Display: copy answers array items from local storage tqList[index] into 4 <li> elements
     for(var i = 0; i < choicesList.length; i++ ) {
       choicesList[i].textContent = tqList[index].choices[i];
     }
@@ -61,31 +70,83 @@ function displayQuestion() {
   return "";
 }
 
-function checkUserResponse() {
+
   document.getElementById("answerListID").addEventListener("click", function(event) {
     // verify list item is grabbed
     if(event.target && event.target.nodeName == "LI") {
       // var userPicked = checkAnswer(event.target.textContent); 
-      if (event.target.textContent == tqList[index].answer) {
-      score++;
-      scoreEl.textContent = score;
-      }
-      else if (timeLeft > 10) {
-      timeLeft = timeLeft - 10;
-      }
-      else {
-      timeLeft = 0;
-      endOfGame();
-      }
+      checkUserResponse(event.target.textContent);
     }
   });
-}
 
-function endOfGame() {
-  timerEl.textContent = 0;
-  setTimeout(function(){ alert("End of Game! Well done!"); }, 1000);
-  setTimeout(function(){ location.reload(); }, 2000);
-}
+function checkUserResponse(userClicked) {
+    if(index < length) {
+      if (userClicked == tqList[index].answer) {
+          score++;
+          scoreEl.textContent = score;
+          // statusEl.textContent = correct; 
+        }
+          else if (timeLeft > 10) {
+          timeLeft = timeLeft - 10;
+          // statusEl.textContent = incorrect; 
+        }
+        else {
+          timeLeft = 0;
+          endOfGame();
+        }
+      index++;
+      if (index == length)
+        endOfGame();
+      else
+      displayQuestion();
+     }
+      else {
+        endOfGame();
+    }
+    return "";
+  }
 
-//GAME LOGIC
-// ---------------------------------------------------------------------------- //
+  function endOfGame() {
+    alert("game over");
+  }
+
+// function endOfGame() {
+//   timerEl.textContent = 0;
+//   var inits = prompt('Enter your initials to record your score?', 'ABC');
+//   if ((inits) || (inits === "")) {
+//     var scoreData = localStorage.getItem("highScoreList");
+//     scoreData = scoreData ? JSON.parse(scoreData) : {}; 
+//     scoreData["playerInitials"] = inits;
+//     scoreData["playerScore"] = score;
+//     localStorage.setItem("highScoreList", JSON.stringify(scoreData));
+//     writeScore();    
+//     EOG();
+//   }
+//   else
+//     EOG();
+// }
+
+// function writeScore() {
+//   var tempPlayer = parseInt(localStorage["highScoreList.playerInidtials"]);
+//   var tempScore = parseInt(localStorage["highScoreList.playerScore"]);
+//   var newScore = tempPlayer + "          " + tempScore;
+//   // console.log(newScore); 
+//   // highScoreEl.appendChild(addHighScorePara(newScore)); 
+//   return "";
+//  }
+
+// function addHighScorePara(newHS) {
+//   console.log(newHS);
+//   var tempPara = document.createElement('p');
+//   tempPara.textContent = newHS;
+//   return tempPara; 
+// }
+
+function EOG() {
+  // setTimeout(function(){ location.reload(); }, 3000);  
+  alert("temp game over man");
+}
+//Ask first question
+displayQuestion();
+
+

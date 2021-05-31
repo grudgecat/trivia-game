@@ -23,6 +23,8 @@ h1 {
 }
 
  h2 {
+  font-family: 'Squada One', cursive;
+  color: white;
    font-size: 36px;
    margin: 5px;
  }
@@ -61,6 +63,7 @@ header {
   font-size: 30px;
   /* visibility: visible; */
   background-color: darkslateblue;
+  padding: 10px;
 }
 
 
@@ -80,6 +83,7 @@ header {
 .timerOutput {
   font-size: 48px;
   align-self: center;
+  color: white;
 }
 
 /* display container for trivia questions */
@@ -90,7 +94,7 @@ header {
   background-color: darkslateblue;
   margin: 15px 20px;
   padding: 15px;
-  min-width: 75%;
+  min-width: 80%;
   font-size: 30px;
   border: solid 3px white;
   border-radius: 10px;
@@ -124,8 +128,19 @@ header {
   font-weight: bolder;
 }
 
+.highScoresID {
+  flex-direction: column;
+  /* justify-content: space-around;  */
+}
+
+.highScoresID p {
+  color: white;
+  font-size: 64px;
+  margin: 20px;
+}
+
 .status {
-  align-self: center;
+  align-self: flex-end;
   color: rgb(160, 154, 154);
   font-weight: bolder;
 }
