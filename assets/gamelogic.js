@@ -2,26 +2,16 @@
 // ---------------------------------------------------------------------------- //
 //tqList is declared in separate file 'questionlist.js', contains all questions/answers for game
 var score = 0;
-var correct = "Correct!";
-var incorrect = "Incorrect!";
-var timeLeft = 90;
-var playerInitials = "abc";
+var timeLeft =20;
+var inits = "bob";
 var choicesList = [];
 var index = 0;
 var length = tqList.length;
-console.log(length);
-var highScoreList = {
-  playerInitials: "MOM",
-  playerScore: 50
-};
-localStorage.setItem("highScoreList", JSON.stringify(highScoreList)); 
 
 //DECLARE VARS TO 'GET' ELEMENTS ONTO PAGE
 var timerEl = document.getElementById('currTime');
 var scoreEl = document.getElementById('myScore');
 var buttonEl = document.getElementById('gobutton');
-var statusEl = document.getElementById('status');
-var highScoreEl = document.getElementById('highScoresID');
 
 //DECLARE FUNCTIONS
 // ---------------------------------------------------------------------------- //
@@ -70,7 +60,6 @@ function displayQuestion() {
   return "";
 }
 
-
   document.getElementById("answerListID").addEventListener("click", function(event) {
     // verify list item is grabbed
     if(event.target && event.target.nodeName == "LI") {
@@ -81,71 +70,64 @@ function displayQuestion() {
 
 function checkUserResponse(userClicked) {
     if(index < length) {
-      if (userClicked == tqList[index].answer) {
+      if (userClicked == tqList[index].answer) {  //correct answer
           score++;
           scoreEl.textContent = score;
-          // statusEl.textContent = correct; 
         }
-          else if (timeLeft > 10) {
+          else if (timeLeft > 10) {             //incorrect answer, deduct time
           timeLeft = timeLeft - 10;
-          // statusEl.textContent = incorrect; 
         }
         else {
           timeLeft = 0;
-          endOfGame();
+          // endOfGame(); 
         }
       index++;
-      if (index == length)
-        endOfGame();
+      if (index == length) {
+        alert("should never get here");  //remove me later
+        // endOfGame(); 
+      }
       else
       displayQuestion();
-     }
+    }
       else {
-        endOfGame();
+        alert("should never get here");  //remove me later
+        // endOfGame(); 
     }
     return "";
   }
 
-  function endOfGame() {
-    alert("game over");
+function endOfGame() {
+  timerEl.textContent = 0;  //set timer text output to const zero
+
+  // var HSList = JSON.parse(localStorage.getItem("highScores")) || [];  //UNABLE TO GET PARSE TO WORK IN ANY CONTEXT WHATSOEVER. LOST TRACK OF THE MANY, MANY, MANY WAYS I TRIED TO DO THIS AND NONE WORKED. I'M VERY FRUSTRATED!
+
+  inits = prompt("Enter your initials to record your score?", "ABC"); 
+  if ((inits) || (inits === "")) {
+  
+  var highScores = {
+    i: [inits],
+    s: [score]
+  };
+
+  console.log(HSList);
+
+  // highScores.i[1] = inits; 
+  // highScores.s[1] = score; 
+
+  console.log(highScores);
+
+    EOG(); 
   }
+  else
+    EOG();
+}
 
-// function endOfGame() {
-//   timerEl.textContent = 0;
-//   var inits = prompt('Enter your initials to record your score?', 'ABC');
-//   if ((inits) || (inits === "")) {
-//     var scoreData = localStorage.getItem("highScoreList");
-//     scoreData = scoreData ? JSON.parse(scoreData) : {}; 
-//     scoreData["playerInitials"] = inits;
-//     scoreData["playerScore"] = score;
-//     localStorage.setItem("highScoreList", JSON.stringify(scoreData));
-//     writeScore();    
-//     EOG();
-//   }
-//   else
-//     EOG();
-// }
-
-// function writeScore() {
-//   var tempPlayer = parseInt(localStorage["highScoreList.playerInidtials"]);
-//   var tempScore = parseInt(localStorage["highScoreList.playerScore"]);
-//   var newScore = tempPlayer + "          " + tempScore;
-//   // console.log(newScore); 
-//   // highScoreEl.appendChild(addHighScorePara(newScore)); 
-//   return "";
-//  }
-
-// function addHighScorePara(newHS) {
-//   console.log(newHS);
-//   var tempPara = document.createElement('p');
-//   tempPara.textContent = newHS;
-//   return tempPara; 
-// }
 
 function EOG() {
-  // setTimeout(function(){ location.reload(); }, 3000);  
-  alert("temp game over man");
+  // setTimeout(function(){ location.reload(); }, 2000);  
+  alert("eog called");
 }
+
 //Ask first question
 displayQuestion();
 

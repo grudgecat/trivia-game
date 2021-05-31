@@ -11,13 +11,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet"> <!-- fontImport-->
 </head>
 <header><h1>High Scores</h1></header>
-<body>
+<body onload="showScores()">
     <section class="row">
             <div class="highScoresID" id="highScoresID">
-                
+                <ul id="test">
+
+                </ul>
             </div>
     </section>
-    <script src="./assets/gamelogic.js"></script>
+    <!-- <script src="./assets/gamelogic.js"></script>  -->
+
+<script>
+    function showScores() {
+        var t1 = localStorage.getItem('inits');
+        var t2 = localStorage.getItem('score');
+        console.log(t1);
+        console.log(t2);
+
+        var node = document.createElement("li");
+        var textnode = document.createTextNode(t1 + "          " + t2);
+        node.appendChild(textnode);
+        document.getElementById("test").appendChild(node);
+        return "";
+        }
+
+</script>
+    
 </body>
 <footer><h1><a href="index.html">Back to Game Page </a></h1></footer>
 </html>
