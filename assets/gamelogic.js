@@ -8,6 +8,21 @@ var choicesList = [];
 var index = 0;
 var length = tqList.length;
 
+var highScores = {
+  length: 0,
+  addElem: function addElem(elem) {
+      [].push.call(this, elem)
+  }
+}
+
+var highScores = {
+  length: 0,
+
+  addElem: function addElem(elem) {
+      [].push.call(this, elem)
+  }
+}
+
 //DECLARE VARS TO 'GET' ELEMENTS ONTO PAGE
 var timerEl = document.getElementById('currTime');
 var scoreEl = document.getElementById('myScore');
@@ -99,27 +114,29 @@ function checkUserResponse(userClicked) {
 function endOfGame() {
   timerEl.textContent = 0;  //set timer text output to const zero
 
-  // var HSList = JSON.parse(localStorage.getItem("highScores")) || [];  //UNABLE TO GET PARSE TO WORK IN ANY CONTEXT WHATSOEVER. LOST TRACK OF THE MANY, MANY, MANY WAYS I TRIED TO DO THIS AND NONE WORKED. I'M VERY FRUSTRATED!
-
   inits = prompt("Enter your initials to record your score?", "ABC"); 
   if ((inits) || (inits === "")) {
-  
-  var highScores = {
-    i: [inits],
-    s: [score]
-  };
-
-  console.log(HSList);
-
-  // highScores.i[1] = inits; 
-  // highScores.s[1] = score; 
-
-  console.log(highScores);
-
-    EOG(); 
+  writeScores(inits);  
+     EOG(); 
   }
   else
     EOG();
+}
+
+function writeScores(initials) {
+  console.log(highScores);
+  if (localStorage.getItem("highScores") !== null)
+  {
+    JSON.parse(localStorage.getItem("highScores"));
+    highScores.addElem({initials:initials, score:score});
+  }
+  else
+  {
+    highScores.addElem({initials:initials, score:score});
+  }
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+  console.log("stringify should be called here");
+  return "";
 }
 
 
