@@ -10,13 +10,6 @@ var length = tqList.length;
 
 var highScores = {
   length: 0,
-  addElem: function addElem(elem) {
-      [].push.call(this, elem)
-  }
-}
-
-var highScores = {
-  length: 0,
 
   addElem: function addElem(elem) {
       [].push.call(this, elem)
@@ -128,11 +121,13 @@ function writeScores(initials) {
   if (localStorage.getItem("highScores") !== null)
   {
     JSON.parse(localStorage.getItem("highScores"));
+    console.log("HS is NOT null");
     highScores.addElem({initials:initials, score:score});
   }
   else
   {
     highScores.addElem({initials:initials, score:score});
+    console.log("HS is null");
   }
   localStorage.setItem("highScores", JSON.stringify(highScores));
   console.log("stringify should be called here");
