@@ -15,6 +15,7 @@ var gameStarted = false;
 var timerEl = document.getElementById('currTime');
 var scoreEl = document.getElementById('myScore');
 var buttonEl = document.getElementById('gobutton');
+var feedbackEl = document.getElementById("feedback");
 
 //DECLARE FUNCTIONS
 // ---------------------------------------------------------------------------- //
@@ -52,8 +53,8 @@ function countdown() {
 //DISPLAY THE CURRENT QUESTION AND ANSWER TEXT TO PAGE
 function displayQuestion() {
   if(index < length) {
-    //write question to page for current element index 
-    // statusEl.textContent = ""; 
+    setTimeout(function(){ feedbackEl.textContent = ""; }, 700);
+    //write question to page for current element index     
     document.getElementById("triviaQuestionID").innerHTML = tqList[index].question; 
     //Set up list elements: array of 4 <li>, are children of "answerListID"
     choicesList = document.getElementById("answerListID").children;
@@ -86,11 +87,13 @@ function checkUserResponse(userClicked) {
         //correct answer
         score++;
         scoreEl.textContent = score;
+        feedbackEl.textContent = "Correct!";
         }
         //incorrect answer, deduct time
         else if (timeLeft > 10) 
         {             
         timeLeft = timeLeft - 10;
+        feedbackEl.textContent = "Incorrect!";
         }
         else
         {

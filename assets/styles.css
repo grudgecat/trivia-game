@@ -127,6 +127,10 @@ header {
   font-weight: bolder;
 }
 
+#feedback {
+  margin-left: 20%;
+}
+
 .highScoresID {
   color: white;
   font-family: monospace;
