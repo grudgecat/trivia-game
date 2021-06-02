@@ -2,11 +2,12 @@
 // ---------------------------------------------------------------------------- //
 //tqList is declared in separate file 'questionlist.js', contains all questions/answers for game
 var score = 0;
-var timeLeft =20;
+var timeLeft =90;
 var inits = "";
 var choicesList = [];
 var index = 0;
 var length = tqList.length;
+var gameStarted = false;
 // var highScores = JSON.parse(window.localStorage.getItem("highscores")) || []; //MOVED THIS DECLARATION LOWER NEXT TO WRITE SCORES FXN FOR VISIBILITY
 
 
@@ -25,6 +26,7 @@ buttonEl.addEventListener("click", countdown);
 function countdown() {
   //counter starts with 90 seconds on clock per global var `timeLeft` initialization
   //Hide the start button to prevent mutliple clicks/timer events
+  gameStarted = true;
   buttonEl.style.display = "none";
 
   // Use the `setInterval()` method to 1 sec per interval
@@ -66,8 +68,13 @@ function displayQuestion() {
   document.getElementById("answerListID").addEventListener("click", function(event) {
     // verify list item is grabbed
     if(event.target && event.target.nodeName == "LI") {
-      // var userPicked = checkAnswer(event.target.textContent); 
-      checkUserResponse(event.target.textContent);
+      if(gameStarted == false) {
+        alert("Please click start button to begin game.")
+      }
+      else {
+        checkUserResponse(event.target.textContent);
+      }
+      
     }
   });
 
