@@ -117,7 +117,6 @@ header {
 .questbox li {
   margin: 10px;
   padding: 5px;
-  /* background-color: green;  */
   background-color: silver;
   border: solid 3px white;
   width: 50%;
@@ -129,20 +128,10 @@ header {
 }
 
 .highScoresID {
-  flex-direction: column;
-  /* justify-content: space-around;  */
-}
-
-.highScoresID p {
   color: white;
-  font-size: 64px;
-  margin: 20px;
-}
-
-.status {
-  align-self: flex-end;
-  color: rgb(160, 154, 154);
-  font-weight: bolder;
+  font-family: monospace;
+  font-size: 48px;
+  margin: 15px;
 }
 
 footer {

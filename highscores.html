@@ -14,29 +14,22 @@
 <body onload="showScores()">
     <section class="row">
             <div class="highScoresID" id="highScoresID">
-                <ul id="test">
-
+                <ul id="scoreList">
                 </ul>
             </div>
     </section>
-    <!-- <script src="./assets/gamelogic.js"></script>  -->
-
 <script>
-    function showScores() {
-        var t1 = localStorage.getItem('inits');
-        var t2 = localStorage.getItem('score');
-        console.log(t1);
-        console.log(t2);
-
-        var node = document.createElement("li");
-        var textnode = document.createTextNode(t1 + "          " + t2);
-        node.appendChild(textnode);
-        document.getElementById("test").appendChild(node);
-        return "";
-        }
-
+function showScores() {
+//pull high scores list from local memory
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+//write high scores list to page
+for(i = 0; i < highScores.length; i++) {
+    var tempListItem = document.createElement('LI');
+    tempListItem.textContent = highScores[i].initials + "            " + highScores[i].score;
+    scoreList.appendChild(tempListItem);
+   } 
+}
 </script>
-    
 </body>
 <footer><h1><a href="index.html">Back to Game Page </a></h1></footer>
 </html>

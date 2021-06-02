@@ -3,18 +3,12 @@
 //tqList is declared in separate file 'questionlist.js', contains all questions/answers for game
 var score = 0;
 var timeLeft =20;
-var inits = "bob";
+var inits = "";
 var choicesList = [];
 var index = 0;
 var length = tqList.length;
+// var highScores = JSON.parse(window.localStorage.getItem("highscores")) || []; //MOVED THIS DECLARATION LOWER NEXT TO WRITE SCORES FXN FOR VISIBILITY
 
-var highScores = {
-  length: 0,
-
-  addElem: function addElem(elem) {
-      [].push.call(this, elem)
-  }
-}
 
 //DECLARE VARS TO 'GET' ELEMENTS ONTO PAGE
 var timerEl = document.getElementById('currTime');
@@ -68,6 +62,7 @@ function displayQuestion() {
   return "";
 }
 
+//ADD EVENT LISTENER TO GET USER ANSWER CLICKS
   document.getElementById("answerListID").addEventListener("click", function(event) {
     // verify list item is grabbed
     if(event.target && event.target.nodeName == "LI") {
@@ -76,68 +71,68 @@ function displayQuestion() {
     }
   });
 
+//CHECK USER RESPONSE AGAINST CORRECT ANSWER
 function checkUserResponse(userClicked) {
     if(index < length) {
-      if (userClicked == tqList[index].answer) {  //correct answer
-          score++;
-          scoreEl.textContent = score;
+      if (userClicked == tqList[index].answer) 
+        { 
+        //correct answer
+        score++;
+        scoreEl.textContent = score;
         }
-          else if (timeLeft > 10) {             //incorrect answer, deduct time
-          timeLeft = timeLeft - 10;
+        //incorrect answer, deduct time
+        else if (timeLeft > 10) 
+        {             
+        timeLeft = timeLeft - 10;
         }
-        else {
+        else
+        {
           timeLeft = 0;
           // endOfGame(); 
         }
       index++;
-      if (index == length) {
-        alert("should never get here");  //remove me later
-        // endOfGame(); 
-      }
-      else
-      displayQuestion();
-    }
+
+        if (index == length) {
+          alert("should never get here");  //remove me later
+          // endOfGame(); 
+        }
+        else
+          displayQuestion();
+        }
       else {
-        alert("should never get here");  //remove me later
-        // endOfGame(); 
-    }
+        endOfGame(); 
+      }
     return "";
   }
 
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+//End of Game caused by running out of time or by reaching last question in list
 function endOfGame() {
   timerEl.textContent = 0;  //set timer text output to const zero
-
   inits = prompt("Enter your initials to record your score?", "ABC"); 
   if ((inits) || (inits === "")) {
-  writeScores(inits);  
+    inits = inits.toUpperCase();
+    console.log(inits);
+    writeScores(inits);
      EOG(); 
   }
   else
     EOG();
 }
-
+//push initials and score data to local storage with `highScores` key
 function writeScores(initials) {
-  console.log(highScores);
-  if (localStorage.getItem("highScores") !== null)
-  {
-    JSON.parse(localStorage.getItem("highScores"));
-    console.log("HS is NOT null");
-    highScores.addElem({initials:initials, score:score});
-  }
-  else
-  {
-    highScores.addElem({initials:initials, score:score});
-    console.log("HS is null");
-  }
-  localStorage.setItem("highScores", JSON.stringify(highScores));
-  console.log("stringify should be called here");
-  return "";
+  var addScore = {
+    initials:initials,
+     score:score
+    };
+  highScores.push(addScore);
+  localStorage.setItem("highScores", JSON.stringify(highScores)); 
 }
 
-
+//actual end of game calls page reset
 function EOG() {
-  // setTimeout(function(){ location.reload(); }, 2000);  
-  alert("eog called");
+  setTimeout(function(){ location.reload(); }, 500);  
 }
 
 //Ask first question
