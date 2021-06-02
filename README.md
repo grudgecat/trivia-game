@@ -9,7 +9,7 @@ Creation date: May 2021
 Collaborators: Sheri Elgin
 
 ## Screen Cap
-![screen cap of Password Generator](./Assets/screencap.png )
+![screen cap of Star Wars Trivia Game](./assets/screencap.png )
 
 ## Project Links
 GitHub Source Code: https://github.com/grudgecat/trivia-game \
@@ -21,8 +21,9 @@ _Expected bevhavior:_ \
 User is presented with title and initial first trivia question, no timer or score is running, on page load. \
 If user clicks an answer before starting timer, page alerts user to start game with button first. \
 Once user clicks the start button, the button disappears and the timer starts with 90 seconds on the clock. \
-The user can select one of the 4 answers provided (display changes on hover to indicate which option is being selected), \
-on click, the user will get a reply of 'correct' or 'incorrect' based on whether they selected the right answer for a brief time. \
+The user can select one of the 4 answers provided (display changes on hover to indicate which option \
+is being selected), on click, the user will get a reply of 'correct' or 'incorrect' based on whether \ 
+they selected the right answer for a brief time. \
 If the answer is correct, the score is incremented by one. \
 If the answer is incorrect, the score is not changed but the timer is decremented by 10 seconds. \
 Once the timer runs out, or the user answers the full set of 50 questions, the game will end. \
