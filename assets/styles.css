@@ -93,7 +93,7 @@ header {
   margin-left: -30px;
   background-color: darkslateblue;
   margin: 15px 20px;
-  padding: 15px;
+  padding: 15px 15px 60px;
   min-width: 80%;
   font-size: 30px;
   border: solid 3px white;
@@ -102,7 +102,7 @@ header {
 
 .questbox h2 {
   font-size: 36px;
-  margin-bottom: 15px;
+  margin-bottom: 10px; 
 }
 
 #triviaQuestionID {
@@ -129,6 +129,7 @@ header {
 
 #feedback {
   margin-left: 20%;
+  margin-bottom: 0px;
 }
 
 .highScoresID {
@@ -136,6 +137,12 @@ header {
   font-family: monospace;
   font-size: 48px;
   margin: 15px;
+}
+
+#clearScores button {
+  font-size: 24px;
+  color: white;
+  background-color: darkslateblue;
 }
 
 footer {

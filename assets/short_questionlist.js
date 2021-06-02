@@ -230,6 +230,16 @@ const tqList = [
     question: "In Star Wars, what do they call the invisible power that binds the galaxy together?",
     answer: "The Force",
     choices: ["The Force", "Gluesticks", "Kraggle", "Mycelium"]
+    },
+    {
+      question: "Which character is partially named after George Lucas’ son?",
+      answer: "Dexter Jettster",
+      choices: ["Lando Calrissian", "Dexter Jettster", "Chewbacca", "Bail Organa"]
+    },
+    {
+      question: "Who kissed Leia first?",
+      answer: "Luke Skywalker",
+      choices: ["Han Solo", "Anakin Skywalker", "Ben Kenobi", "Luke Skywalker"]
     }     
   ];
 
