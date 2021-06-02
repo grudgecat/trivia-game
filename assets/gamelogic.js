@@ -103,8 +103,7 @@ function checkUserResponse(userClicked) {
       index++;
 
         if (index == length) {
-          alert("should never get here");  //remove me later
-          // endOfGame(); 
+          endOfGame(); 
         }
         else
           displayQuestion();
